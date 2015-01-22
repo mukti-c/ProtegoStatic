@@ -1,0 +1,67 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:text="TCPDUMP"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/textView"
+        android:textColor="#ff0a1973"
+        android:textColorHighlight="#fffbff20"
+        android:focusable="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextView"
+        android:height="20dp"
+        android:textColor="#ff0a1973"
+        android:layout_above="@+id/startButton"
+        android:layout_below="@+id/textView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/startCapture"
+        android:id="@+id/startButton"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stopCapture"
+        android:id="@+id/stopButton"
+        android:layout_below="@+id/startButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create CSV File"
+        android:id="@+id/btnExtractFeatures"
+        android:layout_below="@+id/stopButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Evaluate Model"
+        android:id="@+id/btnEvaluate"
+        android:layout_below="@+id/button"
+        android:layout_alignRight="@+id/btnExtractFeatures"
+        android:layout_alignEnd="@+id/btnExtractFeatures" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Classify!"
+        android:id="@+id/btnClassify"
+        android:layout_below="@+id/btnExtractFeatures"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
