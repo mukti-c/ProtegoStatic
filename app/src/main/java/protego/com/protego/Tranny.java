@@ -1,5 +1,7 @@
 package protego.com.protego;
 
+import android.os.Environment;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,7 +38,7 @@ public class Tranny {
 
         ArffLoader loader = new ArffLoader();
         try {
-            loader.setFile(new File("/sdcard/" + fname + ".arff"));
+            loader.setFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + fname + ".arff"));
             traindata = loader.getDataSet();
             traindata.setClassIndex(traindata.numAttributes() - 1);
         } catch (IOException e) {
@@ -54,7 +56,7 @@ public class Tranny {
 
         ObjectOutputStream out = null;
         try {
-            out = new ObjectOutputStream(new FileOutputStream("/sdcard/model.txt"));
+            out = new ObjectOutputStream(new FileOutputStream(Environment.getExternalStorageDirectory().getAbsoluteFile()  + File.separator + "model.txt"));
             out.writeObject(classifier);
             out.close();
         } catch (IOException e) {
@@ -68,7 +70,7 @@ public class Tranny {
 
         String [] options = new String[2];
         options[0] = "-t";
-        options[1] = "/sdcard/"+fname+".arff";
+        options[1] = Environment.getExternalStorageDirectory().getAbsoluteFile()  + File.separator +fname+".arff";
 
         String out = null;
 
@@ -86,7 +88,7 @@ public class Tranny {
 
         ObjectInputStream in = null;
         try {
-            in = new ObjectInputStream(new FileInputStream("/sdcard/model.txt"));
+            in = new ObjectInputStream(new FileInputStream(Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + "model.txt"));
             try {
                 Object tmp = in.readObject();
                 classifier = (DecisionStump) tmp;
@@ -106,13 +108,13 @@ public class Tranny {
             //BufferedReader reader = new BufferedReader(new FileReader("/sdcard/"+fname+".arff"));
             ArffLoader arff= null;
 
-            BufferedReader read = new BufferedReader(new FileReader("/sdcard/"+fname+".csv"));
+            BufferedReader read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator +fname+".csv"));
 
             try {
                 while((text = read.readLine())!=null) {
 
                     arff = new ArffLoader();
-                    arff.setFile(new File("/sdcard/"+filename[0]+".arff"));
+                    arff.setFile(new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator+filename[0]+".arff"));
                     //arff.setFile(new File("/sdcard/cartest1.arff"));
                     instances = arff.getStructure();
 

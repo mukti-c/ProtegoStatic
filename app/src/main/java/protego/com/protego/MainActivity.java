@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
 
         initialize();
         installTcpdumpBinary();
-        parameters.setText("-nvv>" + Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "tcpdump.pcap");
+        parameters.setText("-i wlan0 -p -U -w " + Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "tcpdump.pcap");
         //tcpdump.append("/data/data/protego.com.tcpdump/files/tcpdump -nvv >"+m_chosenDir+"/tcpdump.pcap");
         // RootAccess.hasRoot(this);
         //RootAccess.runAsRootUser(tcpdump.toString(), result, 1000);

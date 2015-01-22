@@ -5,7 +5,7 @@ package protego.com.protego;
  */
 public class TCPdump extends RootShell {
 
-    protected static final String tcpdumpBinaryPath = "/data/data/protego.com.tcpdump/files/tcpdump";
+    protected static final String tcpdumpBinaryPath =  "/data/data/protego.com.protego/files/tcpdump";
 
     /**
      * Parameterless TCPdump class constructor. Calls the superclass

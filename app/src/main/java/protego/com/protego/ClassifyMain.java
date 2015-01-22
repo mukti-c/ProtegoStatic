@@ -21,7 +21,7 @@ public class ClassifyMain extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.classify_main);
         fname = (EditText) findViewById(R.id.fname);
         final String[] filename = new String[1];
 
