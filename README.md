@@ -1,2 +1,0 @@
-# ProtegoStatic
-Static IDS :)
