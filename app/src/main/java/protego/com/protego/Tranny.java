@@ -21,9 +21,12 @@ import weka.core.converters.ArffLoader;
 /**
  * Created by Sohail on 1/10/2015.
  */
+
 public class Tranny {
 
-
+    private final String fileConnection = Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + "connection.csv";
+    private final String fileKDDTraining = Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + "kddreduced.arff";
+    private final String fileModel = Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + "model.txt";
     Instances instances;
     //FilteredClassifier classifier = new FilteredClassifier();
     DecisionStump classifier = new DecisionStump();
@@ -32,13 +35,13 @@ public class Tranny {
     }
 
     //Builds Classifier
-    public int build(String fname) {
+    public int build() {
         int flag = 0;
         Instances traindata = null;
 
         ArffLoader loader = new ArffLoader();
         try {
-            loader.setFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + fname + ".arff"));
+            loader.setFile(new File(fileKDDTraining));
             traindata = loader.getDataSet();
             traindata.setClassIndex(traindata.numAttributes() - 1);
         } catch (IOException e) {
@@ -49,14 +52,13 @@ public class Tranny {
         try {
             classifier.buildClassifier(traindata);
         } catch (Exception e) {
-
             flag = 2;
             e.printStackTrace();
         }
 
         ObjectOutputStream out = null;
         try {
-            out = new ObjectOutputStream(new FileOutputStream(Environment.getExternalStorageDirectory().getAbsoluteFile()  + File.separator + "model.txt"));
+            out = new ObjectOutputStream(new FileOutputStream(fileModel));
             out.writeObject(classifier);
             out.close();
         } catch (IOException e) {
@@ -65,12 +67,11 @@ public class Tranny {
         return flag;
     }
 
-    //Evalutes the built Classifier model
-    public String evaluate (String fname) {
-
+    //Evaluates the built Classifier model
+    public String evaluate () {
         String [] options = new String[2];
         options[0] = "-t";
-        options[1] = Environment.getExternalStorageDirectory().getAbsoluteFile()  + File.separator +fname+".arff";
+        options[1] = fileKDDTraining;
 
         String out = null;
 
@@ -84,11 +85,11 @@ public class Tranny {
     }
 
     //Classifies data
-    public String classify(String fname, String [] filename) {
-
+    public String classify() {
         ObjectInputStream in = null;
+
         try {
-            in = new ObjectInputStream(new FileInputStream(Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + "model.txt"));
+            in = new ObjectInputStream(new FileInputStream(fileModel));
             try {
                 Object tmp = in.readObject();
                 classifier = (DecisionStump) tmp;
@@ -106,18 +107,16 @@ public class Tranny {
 
         try {
             //BufferedReader reader = new BufferedReader(new FileReader("/sdcard/"+fname+".arff"));
-            ArffLoader arff= null;
+            ArffLoader arff = null;
 
-            BufferedReader read = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator +fname+".csv"));
+            BufferedReader read = new BufferedReader(new FileReader(fileConnection));
 
             try {
                 while((text = read.readLine())!=null) {
 
                     arff = new ArffLoader();
-                    arff.setFile(new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator+filename[0]+".arff"));
-                    //arff.setFile(new File("/sdcard/cartest1.arff"));
+                    arff.setFile(new File(fileKDDTraining));
                     instances = arff.getStructure();
-
 
                     //instances = new Instances("Test relation", (java.util.ArrayList<Attribute>) attributelist, 1);
                     instances.setClassIndex(instances.numAttributes()-1);
@@ -172,14 +171,9 @@ public class Tranny {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         return out;
     }
-
 }

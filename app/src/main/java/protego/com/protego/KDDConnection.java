@@ -6,8 +6,6 @@ package protego.com.protego;
  * are not related to smartphones. Hence, this object will contain 28 features.
  */
 
-import android.util.Log;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Set;
@@ -141,14 +139,13 @@ public class KDDConnection {
         // 2. https://www.bro.org/sphinx/_downloads/main20.bro
         // {OTH,REJ,RSTO,RSTOS0,RSTR,S0,S1,S2,S3,SF,SH}
 
-        Log.d ("GETFLAG", GlobalVariables.stateHistory+"\n");
         if (protocol.equals("tcp")) {
             if (GlobalVariables.stateHistory.contains("r")) {
                 // Responder = TCP_RESET
                 if (GlobalVariables.stateHistory.length() != 1) {
                     // Has more than one character
-                    String temp = GlobalVariables.stateHistory.split("r")[0];
-                    if (temp.contains("S") // Originator = TCP_SYN_SENT
+                    String temp = GlobalVariables.stateHistory.split("r", 2)[0];
+                    if (temp != null && temp.contains("S") // Originator = TCP_SYN_SENT
                             || temp.contains("H") // Originator = TCP_SYN_ACK_SENT
                             || temp.contains("R")) { // Originator = TCP_RESET
                         return "REJ";
@@ -158,8 +155,8 @@ public class KDDConnection {
             }
             else if (GlobalVariables.stateHistory.contains("R")) {
                 if (GlobalVariables.stateHistory.length() != 1) {
-                    String temp = GlobalVariables.stateHistory.split("R")[1];
-                    if (!temp.contains("S") && !temp.contains("H") && !temp.contains("I")
+                    String temp = GlobalVariables.stateHistory.split("R", 2)[1];
+                    if (temp != null && !temp.contains("S") && !temp.contains("H") && !temp.contains("I")
                             && !temp.contains("A") && !temp.contains("F") && !temp.contains("R")) {
                         // Originator sent a SYN followed by a RST, we never saw a SYN-ACK from the responder
                         return "RSTOS0";
@@ -174,8 +171,8 @@ public class KDDConnection {
             else if (GlobalVariables.stateHistory.contains("F")) {
                 // Originator = TCP_CLOSED (with finish bit)
                 if (GlobalVariables.stateHistory.length() != 1) {
-                    String temp = GlobalVariables.stateHistory.split("F")[1];
-                    if (!temp.contains("s") && !temp.contains("h") && !temp.contains("i")
+                    String temp = GlobalVariables.stateHistory.split("F", 2)[1];
+                    if (temp != null && !temp.contains("s") && !temp.contains("h") && !temp.contains("i")
                             && !temp.contains("a") && !temp.contains("f") && !temp.contains("r")) {
                         // Responder didn't send reply after Originator sends FIN (half open connection)
                         return "SH";
@@ -186,19 +183,19 @@ public class KDDConnection {
             else if (GlobalVariables.stateHistory.contains("f")) {
                 // Responder = TCP_CLOSED
                 if (GlobalVariables.stateHistory.length() != 1) {
-                    String temp = GlobalVariables.stateHistory.split("f")[1];
-                    if (!temp.contains("S") && !temp.contains("H") && !temp.contains("I")
+                    String temp = GlobalVariables.stateHistory.split("f", 2)[1];
+                    if (temp != null && !temp.contains("S") && !temp.contains("H") && !temp.contains("I")
                             && !temp.contains("A") && !temp.contains("F") && !temp.contains("R")) {
                         // Originator doesn't respond
-                        return "SHR";
+                        return "S3";
                     }
                 }
                 else return "S3";
             }
             else if (GlobalVariables.stateHistory.contains("S")) {
                 if (GlobalVariables.stateHistory.length() != 1) {
-                    String temp = GlobalVariables.stateHistory.split("S")[1];
-                    if (!temp.contains("s") && !temp.contains("h") && !temp.contains("i")
+                    String temp = GlobalVariables.stateHistory.split("S", 2)[1];
+                    if (temp != null && !temp.contains("s") && !temp.contains("h") && !temp.contains("i")
                             && !temp.contains("a") && !temp.contains("f") && !temp.contains("r")) {
                         // Originator = SYN_SENT and responder = TCP_INACTIVE
                         return "S0";
