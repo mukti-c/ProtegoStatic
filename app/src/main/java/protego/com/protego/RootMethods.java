@@ -1,8 +1,5 @@
 package protego.com.protego;
 
-/**
- * Created by chanijindal on 21/01/15.
- */
 public class RootMethods extends Root {
 
      public RootMethods(){

@@ -1,8 +1,5 @@
 package protego.com.protego;
 
-/**
- * Created by chanijindal on 22/01/15.
- */
 
 import java.io.IOException;
 

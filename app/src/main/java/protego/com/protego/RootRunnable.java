@@ -12,9 +12,6 @@ import java.io.InputStreamReader;
 
 import RootTools.RootTools;
 
-/**
- * Created by chanijindal on 21/01/15.
- */
 public class RootRunnable {
 
 

@@ -1,9 +1,5 @@
 package protego.com.protego;
 
-/**
- * Created by chanijindal on 06/01/15.
- */
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-/**
- * Created by chanijindal on 19/01/15.
- */
 public class Root  {
 
     public static Process process=null;

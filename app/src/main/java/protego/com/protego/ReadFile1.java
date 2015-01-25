@@ -21,9 +21,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by muktichowkwale on 11/01/15.
- */
 
 public class ReadFile1 extends Activity {
 
@@ -95,6 +92,7 @@ public class ReadFile1 extends Activity {
                 GlobalVariables.startTime = data.TIMESTAMP;
                 GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                 connSet.add(data);
+               CreateLogFile.logData.append(GetTime.getCurrentTime()+"New Connection set created\n");
             } else {
                 if (GlobalVariables.connProtocol.equals(data.PROTOCOL)
                         && GlobalVariables.connService.equals(data.SERVICE)
@@ -102,9 +100,12 @@ public class ReadFile1 extends Activity {
                     // The packet is from the same connection
                     GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                     connSet.add(data);
+                    CreateLogFile.logData.append("Ongoing connection \n");
                 } else {
                     GlobalVariables.endTime = data.TIMESTAMP;
+                    CreateLogFile.logData.append(GetTime.getCurrentTime()+"Previous connection terminated\n");
                     KDDConnection.createConnectionRecord(connSet);
+                    CreateLogFile.logData.append(GetTime.getCurrentTime()+"Record for the terminated connection created\n");
                     connSet.clear();
                     GlobalVariables.clearVar();
                     GlobalVariables.startTime = data.TIMESTAMP;
@@ -116,6 +117,8 @@ public class ReadFile1 extends Activity {
                     GlobalVariables.connDestPort = data.DEST_PORT;
                     GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                     connSet.add(data);
+                    CreateLogFile.logData.append(GetTime.getCurrentTime()+"New Connection set created\n");
+
                 }
             }
         }
