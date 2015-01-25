@@ -4,9 +4,7 @@ package protego.com.protego;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-/**
- * Created by chanijindal on 22/01/15.
- */
+
 public class RootShell {
 
     protected Process process = null;

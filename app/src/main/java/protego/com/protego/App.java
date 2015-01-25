@@ -19,10 +19,6 @@ import java.io.OutputStream;
 
 import RootTools.RootTools;
 
-/**
- * Created by muktichowkwale on 19/01/15.
- */
-
 public class App extends Activity {
 
     public void installTcpdumpBinary() {

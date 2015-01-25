@@ -3,11 +3,13 @@ package protego.com.protego;
 import android.os.Environment;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,9 +20,6 @@ import weka.core.DenseInstance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
-/**
- * Created by Sohail on 1/10/2015.
- */
 public class Tranny {
 
     String trainingSet = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "kddreduced.arff";
@@ -65,6 +64,31 @@ public class Tranny {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Getting the source of the trained model
+        String fpathnew = "/sdcard/finalmodel.txt";
+        File f = new File(fpathnew);
+        if(!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            FileWriter fw = new FileWriter(f.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            try {
+                bw.write(classifier.toSource("AdaBoostM1"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return flag;
     }
 

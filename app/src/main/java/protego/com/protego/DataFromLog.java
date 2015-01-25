@@ -1,9 +1,5 @@
 package protego.com.protego;
 
-/*
- * Creates an object that contains data from the log.
- */
-
 public class DataFromLog {
 
     final static String TAG = "DataFromLog";

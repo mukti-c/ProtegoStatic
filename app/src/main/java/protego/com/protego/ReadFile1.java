@@ -21,9 +21,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by muktichowkwale on 11/01/15.
- */
 
 public class ReadFile1 extends Activity {
 

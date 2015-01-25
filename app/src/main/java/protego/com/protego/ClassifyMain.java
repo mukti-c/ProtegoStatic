@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
 public class ClassifyMain extends Activity implements View.OnClickListener{
     EditText fname, fnameread;
     Button classify, eval;
