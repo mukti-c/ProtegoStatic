@@ -2,9 +2,6 @@ package protego.com.protego;
 
 import java.util.Calendar;
 
-/**
- * Created by chanijindal on 25/01/15.
- */
 public class GetTime {
 
     public static String getCurrentTime()

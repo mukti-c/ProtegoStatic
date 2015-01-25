@@ -9,9 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Created by chanijindal on 24/01/15.
- */
 public class CreateLogFile {
 
 public static StringBuilder logData= new StringBuilder();

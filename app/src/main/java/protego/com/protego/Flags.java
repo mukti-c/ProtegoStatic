@@ -1,8 +1,5 @@
 package protego.com.protego;
 
-/**
- * Created by muktichowkwale on 12/01/15.
- */
 public class Flags {
     boolean CWR = false;
     boolean ECE = false;

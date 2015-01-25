@@ -3,9 +3,6 @@ package protego.com.protego;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-/**
- * Created by muktichowkwale on 13/01/15.
- */
 
 public class PastConnQueue {
     /*
