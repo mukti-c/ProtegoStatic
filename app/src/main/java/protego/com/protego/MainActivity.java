@@ -1,14 +1,11 @@
 package protego.com.protego;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -22,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import RootTools.RootTools;
 
@@ -31,8 +30,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
     // public static StringBuilder tcpdump= new StringBuilder();
     TextView textView;
     EditText parameters;
-    Button startButton,stopButton, btnEvaluate, extractButton, btnClassify;
-    ActionBar actionBar;
+    Button startButton,stopButton, extractButton, btnClassify;
     String m_chosenDir = "";
     boolean m_newFolderEnabled = true;
     int button_running =0;
@@ -41,11 +39,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
     RootRunnable rootRunnable;
     TCPdump tcpdump;
     TCPdumpHandler tcpDumpHandler;
-
-
-    SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
-
-    SharedPreferences.Editor edit = sharedPreferences.edit();
 
 
     @Override
@@ -82,8 +75,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
                 showDirectoryDialog();
                 //tcpdump.append("/data/data/protego.com.tcpdump/files/tcpdump -nvv >"+m_chosenDir+"/tcpdump.pcap");
                 chosen_dir_changed=1;
-                Log.e("directory", m_chosenDir );
-                edit.putString("selectedDirectory",m_chosenDir);
+                Log.e("directory", m_chosenDir);
                 GlobalVariables.chosen_Dir=m_chosenDir;
                 break;
 
@@ -104,22 +96,21 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
         rootMethods= new RootMethods();
         rootRunnable = new RootRunnable(this,this,rootMethods);
         extractButton = (Button) findViewById(R.id.btnExtractFeatures);
-        btnEvaluate = (Button) findViewById(R.id.btnEvaluate);
         extractButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent extractIntent = new Intent("protego.com.protego.READFILE1");
-                startActivity(extractIntent);
+                try {
+                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "connection.csv");
+                    FileWriter writer = new FileWriter(file, false);
+                    writer.close();
+                    Intent extractIntent = new Intent("protego.com.protego.READFILE1");
+                    startActivity(extractIntent);
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Cannot create file. Try again.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        btnEvaluate.setOnClickListener((new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent eval = new Intent("protego.com.protego.EVALUATE");
-                startActivity(eval);
-            }
-        }));
 
         btnClassify.setOnClickListener(new OnClickListener() {
 

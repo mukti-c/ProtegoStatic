@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class ClassifyMain extends Activity implements View.OnClickListener{
     EditText fname, fnameread;
-    Button build, classify, eval;
+    Button classify, eval;
     //ImageView imageView;
     TextView filecon, textView;
     int counter = 0;
@@ -22,11 +22,7 @@ public class ClassifyMain extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.classify_main);
-        fname = (EditText) findViewById(R.id.fname);
-        final String[] filename = new String[1];
 
-        fnameread = (EditText) findViewById(R.id.fnameread);
-        build = (Button) findViewById(R.id.bbuild);
         classify = (Button) findViewById(R.id.beval);
         eval = (Button) findViewById(R.id.eval);
         filecon = (TextView) findViewById(R.id.filecon);
@@ -34,34 +30,11 @@ public class ClassifyMain extends Activity implements View.OnClickListener{
 
         textView.setOnClickListener(this);
 
-        build.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-
-                filename[0] = fname.getText().toString();
-
-                Tranny t1 = new Tranny();
-                int flag = t1.build(filename[0]);
-
-                if (flag == 0) {
-                    Toast.makeText(getApplicationContext(),"Classifier built :)", Toast.LENGTH_SHORT).show();
-                }
-                else if(flag == 1) {
-                    Toast.makeText(getApplicationContext(), "Error :( File not found", Toast.LENGTH_SHORT).show();
-                }
-                else if(flag == 2) {
-                    Toast.makeText(getApplicationContext(), "Error :( Classifier not built", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
         classify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String readfilename = fnameread.getText().toString();
                 Tranny t1 = new Tranny();
-                String out = t1.classify(readfilename, filename);
+                String out = t1.classify();
                 filecon.setText(out);
             }
         });
@@ -69,9 +42,8 @@ public class ClassifyMain extends Activity implements View.OnClickListener{
         eval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String readfilename = fnameread.getText().toString();
                 Tranny t1 = new Tranny();
-                String out = t1.evaluate(readfilename);
+                String out = t1.evaluate();
                 filecon.setText(out);
             }
         });
