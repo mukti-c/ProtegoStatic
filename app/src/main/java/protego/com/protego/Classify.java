@@ -27,6 +27,7 @@ public class Classify {
 
         try {
             loader.setFile(new File("/sdcard/"+fname+".arff"));
+            CreateLogFile.logData.append(GetTime.getCurrentTime()+".arff File loaded from"+GlobalVariables.chosen_Dir+"\n");
             structure = loader.getStructure();
             structure.setClassIndex(structure.numAttributes() - 1);
         } catch (IOException e) {
@@ -45,6 +46,8 @@ public class Classify {
             e.printStackTrace();
         }
 
+        CreateLogFile.logData.append(GetTime.getCurrentTime()+"Training the classifier\n");
+
         return flag;
     }
 
@@ -53,7 +56,7 @@ public class Classify {
         String [] options = new String[2];
         options[0] = "-t";
         options[1] = "/sdcard/"+fname+".csv";
-
+        CreateLogFile.logData.append(GetTime.getCurrentTime()+".csv File read from"+GlobalVariables.chosen_Dir+"\n");
         String out = null;
 
         try {
@@ -61,7 +64,7 @@ public class Classify {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        CreateLogFile.logData.append(GetTime.getCurrentTime()+"Evaluating the model\n");
         return out;
     }
 }
