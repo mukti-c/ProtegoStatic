@@ -14,12 +14,12 @@ import java.io.IOException;
  */
 public class CreateLogFile {
 
-public static StringBuilder logData;
+public static StringBuilder logData= new StringBuilder();
 
     public static boolean makeFile(Context context) {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String path = prefs.getString("selectedDirectory","/mnt/sdcard");
+        String path = GlobalVariables.chosen_Dir;
         File logFile = new File(path + "/Activitylog.txt");
 
         try {
