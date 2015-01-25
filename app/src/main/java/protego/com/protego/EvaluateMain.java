@@ -38,8 +38,10 @@ public class EvaluateMain extends Activity {
                 Classify classifier = new Classify();
                 readflag = classifier.Train(readfile);
 
-                if(readflag == 1)
+                if(readflag == 1) {
                     Toast.makeText(getApplicationContext(), "Classifier built", Toast.LENGTH_SHORT).show();
+                    CreateLogFile.logData.append( GetTime.getCurrentTime()+"Classifier built successfully\n");
+                }
                 else if (readflag == -1)
                     Toast.makeText(getApplicationContext(), "Error: Could not build.",Toast.LENGTH_SHORT).show();
                 else if (readflag == 0)
@@ -55,6 +57,7 @@ public class EvaluateMain extends Activity {
                 Classify classifier = new Classify();
                 String text = classifier.Evaluate(readfile);
                 summary.setText(text);
+                CreateLogFile.logData.append( GetTime.getCurrentTime()+"Evaluation model built successfully\n");
 
             }
         });

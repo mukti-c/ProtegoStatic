@@ -15,6 +15,7 @@ public class GlobalVariables {
     public static String connProtocol = null;
     public static String connService = null;
     public static String stateHistory = "";
+    public static String chosen_Dir="";
 
     public static void clearVar() {
         startTime = 0;

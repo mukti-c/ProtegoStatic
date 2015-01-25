@@ -36,6 +36,9 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         // Initialize all global variables
+
+
+
         if (GlobalVariables.last100Conn == null) {
             GlobalVariables.last100Conn = new PastConnQueue();
         }
@@ -73,6 +76,7 @@ public class App extends Application {
                 // Mark that tcpdump has been installed
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean("copiedKDDTrainingDataset", true);
+
                 editor.commit();
             } catch (IOException e) {
                 Log.d ("App", "File failed to copy");

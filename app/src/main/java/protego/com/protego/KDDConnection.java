@@ -90,6 +90,7 @@ public class KDDConnection {
             writer.write(object.convertRecord()+"\n");
             writer.flush();
             writer.close();
+            CreateLogFile.logData.append(GetTime.getCurrentTime()+"Arff file created at"+GlobalVariables.chosen_Dir+"\n");
         } catch (Exception e) {
             e.printStackTrace();
         }
