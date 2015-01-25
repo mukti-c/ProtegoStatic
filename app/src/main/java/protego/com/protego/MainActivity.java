@@ -1,5 +1,6 @@
 package protego.com.protego;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,30 +20,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import RootTools.RootTools;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener{
 
     public static StringBuilder result = new StringBuilder();
-    public RootMethods rootMethods ;
-    public RootRunnable rootRunnable;
-    private TextView textView;
-    private EditText parameters;
-    private Button startButton,stopButton, extractButton, btnClassify;
-    private String m_chosenDir = "";
-    private boolean m_newFolderEnabled = true;
-    private int button_running =0;
-    private int chosen_dir_changed =0;
-    private TCPdump tcpdump;
-    private TCPdumpHandler tcpDumpHandler;
+    // public static StringBuilder tcpdump= new StringBuilder();
+    TextView textView;
+    EditText parameters;
+    Button startButton,stopButton, btnEvaluate, extractButton, btnClassify;
+    ActionBar actionBar;
+    String m_chosenDir = "";
+    boolean m_newFolderEnabled = true;
+    int button_running =0;
+    int chosen_dir_changed =0;
+    RootMethods rootMethods ;
+    RootRunnable rootRunnable;
+    TCPdump tcpdump;
+    TCPdumpHandler tcpDumpHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initialize();
 
+        initialize();
+        installTcpdumpBinary();
         parameters.setText("-i wlan0 -p -U -w " + Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "tcpdump.pcap");
         //tcpdump.append("/data/data/protego.com.tcpdump/files/tcpdump -nvv >"+m_chosenDir+"/tcpdump.pcap");
         // RootAccess.hasRoot(this);
@@ -89,26 +93,23 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
         startButton.setOnClickListener(this);
         rootMethods= new RootMethods();
         rootRunnable = new RootRunnable(this,this,rootMethods);
-
         extractButton = (Button) findViewById(R.id.btnExtractFeatures);
+        btnEvaluate = (Button) findViewById(R.id.btnEvaluate);
         extractButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // Delete contents of file
-                try {
-                    File file = new File(ReadFile1.csvFile);
-                    if (file.exists()) {
-                        FileWriter writer = new FileWriter(file, false);
-                        writer.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 Intent extractIntent = new Intent("protego.com.protego.READFILE1");
                 startActivity(extractIntent);
             }
         });
+        btnEvaluate.setOnClickListener((new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent eval = new Intent("protego.com.protego.EVALUATE");
+                startActivity(eval);
+            }
+        }));
 
         btnClassify.setOnClickListener(new OnClickListener() {
 
@@ -118,6 +119,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
                 startActivity(classify);
             }
         });
+    }
+
+    public void installTcpdumpBinary() {
+
+        if(RootTools.installBinary(this,R.raw.tcpdump,"tcpdump")==false)
+            showAlert(this,"extraction error");
     }
 
     public  void startTCPdump1()

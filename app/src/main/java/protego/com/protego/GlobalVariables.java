@@ -3,7 +3,6 @@ package protego.com.protego;
 /**
  * Created by muktichowkwale on 13/01/15.
  */
-
 public class GlobalVariables {
     public static PastConnQueue last100Conn;
     public static LastTwoSecQueue lastTwoSec;

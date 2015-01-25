@@ -19,6 +19,28 @@
         android:typeface="serif"
         android:textSize="21dp" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fname"
+        android:hint="File Name"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bbuild"
+        android:text="Build Classifier"
+        android:textColor="#ffffff"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fnameread"
+        android:hint="File Name"
+        android:textColor="#ffffff"/>
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
