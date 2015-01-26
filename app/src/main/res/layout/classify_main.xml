@@ -25,14 +25,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/beval"
         android:text="Classify"
-        android:textColor="#ffffff"/>
+        android:textColor="#ff0a1973"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/eval"
         android:text="Evaluate Model"
-        android:textColor="#ffffff"/>
+        android:textColor="#ff0a1973"/>
 
     <ScrollView
         android:layout_width="fill_parent"

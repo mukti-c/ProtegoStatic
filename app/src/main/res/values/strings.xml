@@ -11,5 +11,17 @@
         <item>"apply filtering"</item>
         <item>"settings"</item>
     </string-array>
+    <string-array name="drawer_items">
+        <item>Display Generated Model</item>
+        <item>Display Dataset Used</item>
+        <item>Display Log File</item>
+        <item>Display Extracted Features</item>
+    </string-array>
+
+    <string name="title_activity_display_dataset">DisplayDataset</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_display_model">DisplayModel</string>
+    <string name="title_activity_display_log">DisplayLog</string>
+    <string name="title_activity_display_extracted_features">DisplayExtractedFeatures</string>
 
 </resources>
