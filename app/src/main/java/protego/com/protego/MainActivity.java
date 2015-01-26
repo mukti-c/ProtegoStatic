@@ -1,20 +1,26 @@
 package protego.com.protego;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +46,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
     TCPdump tcpdump;
     TCPdumpHandler tcpDumpHandler;
 
+    DrawerLayout drawer;
+    ListView drawerList;
+    String[] choice;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +65,27 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
         tcpdump = new TCPdump();
         // Creating a TCPdump handler for the TCPdump object created after.
         tcpDumpHandler = new TCPdumpHandler(tcpdump, this, this, true);
+
+        choice = getResources().getStringArray(R.array.drawer_items);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList = (ListView) findViewById(R.id.list_view);
+
+        drawerList.setSelector(android.R.color.white);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), R.layout.drawer_item_list, choice);
+        drawerList.setAdapter(adapter);
+        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                drawer.closeDrawers();
+                Bundle args = new Bundle();
+                args.putString("Choice", choice[position]);
+                Fragment detail = new DetailFragment();
+                detail.setArguments(args);
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_frame, detail).commit();
+            }
+        });
     }
 
     @Override

@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class ClassifyMain extends Activity implements View.OnClickListener{
     EditText fname, fnameread;
     Button classify, eval;
-    //ImageView imageView;
+
     TextView filecon, textView;
     int counter = 0;
     @Override
@@ -80,15 +80,11 @@ public class ClassifyMain extends Activity implements View.OnClickListener{
         if(counter==7)
         {
             Toast.makeText(getApplicationContext(), "Yo mama is so fat, that her weight is more than the lines of code!", Toast.LENGTH_LONG) .show();
-            //imageView.setVisibility(View.VISIBLE);
-
         }
         else if(counter==14)
         {
             Toast.makeText(getApplicationContext(), "Says THE BATMAN!", Toast.LENGTH_LONG).show();
             counter = 0;
         }
-        //else
-        //imageView.setVisibility(View.INVISIBLE);
     }
 }
