@@ -5,9 +5,6 @@ import android.content.Context;
 
 import java.io.IOException;
 
-/**
- * Created by chanijindal on 23/12/14.
- */
 public class RootAccess{
 
     public static boolean hasRoot= false;
@@ -42,6 +39,7 @@ public class RootAccess{
             }
         } catch (Exception e)
         {
+            e.printStackTrace();
         }
 
         showAlertBox("Cannot acquire the root access .Either phone is not rooted or root permission not granted",context);

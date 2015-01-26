@@ -15,7 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import weka.classifiers.Evaluation;
-import weka.classifiers.trees.DecisionStump;
+import weka.classifiers.meta.AdaBoostM1;
 import weka.core.DenseInstance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
@@ -27,7 +27,7 @@ public class Tranny {
     String modelFile = Environment.getExternalStorageDirectory().getAbsolutePath()  + File.separator + "model.txt";
     Instances instances;
     //FilteredClassifier classifier = new FilteredClassifier();
-    DecisionStump classifier = new DecisionStump();
+    AdaBoostM1 classifier = new AdaBoostM1();
 
     public Tranny() {
 
@@ -56,7 +56,7 @@ public class Tranny {
             e.printStackTrace();
         }
 
-        ObjectOutputStream out = null;
+        ObjectOutputStream out;
         try {
             out = new ObjectOutputStream(new FileOutputStream(modelFile));
             out.writeObject(classifier);
@@ -113,12 +113,12 @@ public class Tranny {
     //Classifies data
     public String classify() {
 
-        ObjectInputStream in = null;
+        ObjectInputStream in;
         try {
             in = new ObjectInputStream(new FileInputStream(modelFile));
             try {
                 Object tmp = in.readObject();
-                classifier = (DecisionStump) tmp;
+                classifier = (AdaBoostM1) tmp;
                 in.close();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -132,7 +132,7 @@ public class Tranny {
         String text;
 
         try {
-            ArffLoader arff= null;
+            ArffLoader arff;
 
             BufferedReader read = new BufferedReader(new FileReader(csvFile));
 
@@ -143,8 +143,6 @@ public class Tranny {
                     arff.setFile(new File(trainingSet));
                     instances = arff.getStructure();
 
-
-                    //instances = new Instances("Test relation", (java.util.ArrayList<Attribute>) attributelist, 1);
                     instances.setClassIndex(instances.numAttributes()-1);
 
                     DenseInstance instance = new DenseInstance(29);
