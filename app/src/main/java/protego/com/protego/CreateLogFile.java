@@ -10,14 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CreateLogFile {
-    static String path;
+
 public static StringBuilder logData= new StringBuilder();
 
     public static boolean makeFile(Context context) {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        path = GlobalVariables.chosen_Dir;
-        File logFile = new File(path + "/Activitylog.txt");
+        //String path = GlobalVariables.chosen_Dir;
+        File logFile = new File("sdcard/Activitylog.txt");
 
         try {
             logFile.createNewFile();

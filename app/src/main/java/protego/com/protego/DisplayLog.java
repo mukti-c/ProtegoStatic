@@ -25,11 +25,10 @@ public class DisplayLog extends ActionBarActivity {
         CreateLogFile cr = new CreateLogFile();
 
         cr.makeFile(this);
-        String path = cr.path;
         String out = "";
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path + "/Activitylog.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("sdcard/Activitylog.txt"));
 
             try {
                 String line;
