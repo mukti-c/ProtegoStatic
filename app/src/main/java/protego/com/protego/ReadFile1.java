@@ -98,6 +98,7 @@ public class ReadFile1 extends Activity {
                 GlobalVariables.connSourcePort = data.SRC_PORT;
                 GlobalVariables.connDestPort = data.DEST_PORT;
                 GlobalVariables.startTime = data.TIMESTAMP;
+                GlobalVariables.endTime = data.TIMESTAMP;
                 GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                 connSet.add(data);
                 CreateLogFile.logData.append(GetTime.getCurrentTime()+"New Connection set created\n");
@@ -106,6 +107,7 @@ public class ReadFile1 extends Activity {
                         && GlobalVariables.connService.equals(data.SERVICE)
                         && ((GlobalVariables.connDestIP.equals(data.DEST_IP) && GlobalVariables.connSourceIP.equals(data.SRC_IP)) || (GlobalVariables.connDestIP.equals(data.SRC_IP) && GlobalVariables.connSourceIP.equals(data.DEST_IP)))) {
                     // The packet is from the same connection
+                    GlobalVariables.endTime = data.TIMESTAMP;
                     GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                     connSet.add(data);
                     //CreateLogFile.logData.append("Ongoing connection \n");
@@ -126,7 +128,6 @@ public class ReadFile1 extends Activity {
                     GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                     connSet.add(data);
                     CreateLogFile.logData.append(GetTime.getCurrentTime()+"New Connection set created\n");
-
                 }
             }
         }
