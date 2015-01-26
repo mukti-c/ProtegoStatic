@@ -46,6 +46,14 @@ public class ReadFile1 extends Activity {
             e.printStackTrace();
         }
         getPackets();
+        if (connSet.size() != 0) {
+            // Connection was going on when the pcap file got terminated
+            CreateLogFile.logData.append(GetTime.getCurrentTime()+"Previous connection terminated\n");
+            KDDConnection.createConnectionRecord(connSet);
+            CreateLogFile.logData.append(GetTime.getCurrentTime()+"Record for the terminated connection created\n");
+            connSet.clear();
+            GlobalVariables.clearVar();
+        }
     }
 
     private void getPackets() {
@@ -92,7 +100,7 @@ public class ReadFile1 extends Activity {
                 GlobalVariables.startTime = data.TIMESTAMP;
                 GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                 connSet.add(data);
-               CreateLogFile.logData.append(GetTime.getCurrentTime()+"New Connection set created\n");
+                CreateLogFile.logData.append(GetTime.getCurrentTime()+"New Connection set created\n");
             } else {
                 if (GlobalVariables.connProtocol.equals(data.PROTOCOL)
                         && GlobalVariables.connService.equals(data.SERVICE)
@@ -100,7 +108,7 @@ public class ReadFile1 extends Activity {
                     // The packet is from the same connection
                     GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                     connSet.add(data);
-                    CreateLogFile.logData.append("Ongoing connection \n");
+                    //CreateLogFile.logData.append("Ongoing connection \n");
                 } else {
                     GlobalVariables.endTime = data.TIMESTAMP;
                     CreateLogFile.logData.append(GetTime.getCurrentTime()+"Previous connection terminated\n");

@@ -1,19 +1,19 @@
 package protego.com.protego;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ClassifyMain extends Activity implements View.OnClickListener{
-    EditText fname, fnameread;
     Button classify, eval;
-
+    public String out1;
     TextView filecon, textView;
     int counter = 0;
     @Override
@@ -38,11 +38,10 @@ public class ClassifyMain extends Activity implements View.OnClickListener{
         });
 
         eval.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                Tranny t1 = new Tranny();
-                String out = t1.evaluate();
-                filecon.setText(out);
+                new EvalTask().execute();
             }
         });
 
@@ -85,6 +84,31 @@ public class ClassifyMain extends Activity implements View.OnClickListener{
         {
             Toast.makeText(getApplicationContext(), "Says THE BATMAN!", Toast.LENGTH_LONG).show();
             counter = 0;
+        }
+    }
+
+    private class EvalTask extends AsyncTask<Void, Void, Void> {
+
+        private ProgressDialog progress;
+        @Override
+        protected Void doInBackground(Void... params) {
+            Tranny t1 = new Tranny();
+            out1 = t1.evaluate();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress = ProgressDialog.show(ClassifyMain.this, "", "Please wait while the model is evaluated...", true);
+            progress.setCancelable(false);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progress.dismiss();
+            filecon.setText(out1);
         }
     }
 }

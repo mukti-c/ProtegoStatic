@@ -37,7 +37,7 @@ public class DisplayModel extends ActionBarActivity {
                 e.printStackTrace();
             }
         } catch (FileNotFoundException e) {
-            out = "Model has not been generated yet";
+            out = "Model has not been generated yet.";
             e.printStackTrace();
         }
 
