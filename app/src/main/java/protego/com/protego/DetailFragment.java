@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * Created by Sohail on 1/26/2015.
- */
 public class DetailFragment extends Fragment{
     TextView textitem;
 
