@@ -101,7 +101,7 @@ public class ReadFile1 extends Activity {
                 GlobalVariables.endTime = data.TIMESTAMP;
                 GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                 connSet.add(data);
-                CreateLogFile.logData.append(GetTime.getCurrentTime()+"New Connection set created\n");
+                CreateLogFile.logData.append(GetTime.getCurrentTime()+"New Connection set created.\nOngoing Connection.\n");
             } else {
                 if (GlobalVariables.connProtocol.equals(data.PROTOCOL)
                         && GlobalVariables.connService.equals(data.SERVICE)
@@ -110,7 +110,6 @@ public class ReadFile1 extends Activity {
                     GlobalVariables.endTime = data.TIMESTAMP;
                     GlobalVariables.findStateHistory(data.FLAGS, data.SRC_IP);
                     connSet.add(data);
-                    //CreateLogFile.logData.append("Ongoing connection \n");
                 } else {
                     GlobalVariables.endTime = data.TIMESTAMP;
                     CreateLogFile.logData.append(GetTime.getCurrentTime()+"Previous connection terminated\n");
